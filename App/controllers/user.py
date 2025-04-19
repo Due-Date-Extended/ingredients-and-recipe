@@ -2,9 +2,9 @@ from App.models import User
 from App.database import db
 from sqlalchemy.exc import SQLAlchemyError
 
-def create_user(username, password, email):
+def create_user(username, password):
     try:
-        newuser = User(username=username, password=password, email=email)
+        newuser = User(username=username, password=password)
         db.session.add(newuser)
         db.session.commit()
         return newuser

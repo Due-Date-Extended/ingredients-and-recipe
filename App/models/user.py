@@ -4,17 +4,15 @@ from App.database import db
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     recipes = db.relationship('Recipe', backref='author', lazy=True)
     ingredients = db.relationship('Ingredient', backref='owner', lazy=True)
     favorites = db.relationship('Favorite', backref='user', lazy=True)
     ratings = db.relationship('Rating', backref='user', lazy=True)
 
-    def __init__(self, username, password, email):
+    def __init__(self, username, password ):
         self.username = username
         self.set_password(password)
-        self.email = email
 
     def toJSON(self):
         return{
