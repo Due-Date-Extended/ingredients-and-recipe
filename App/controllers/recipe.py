@@ -2,7 +2,7 @@ from App.models.recipe import Recipe
 from App.models.RecipeIngredient import RecipeIngredient
 from App.database import db
 from flask import requests
-import json
+#import json
 
 
 def create_recipe(title, instructions, category, image_url, user_id, ingredients):

@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from App import db
 from App.models.ingredient import Ingredient
 from App.controllers.ingredient import * #type: ignore
 

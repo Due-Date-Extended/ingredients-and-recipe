@@ -1,9 +1,9 @@
-import os
+#import os
 from flask import Flask, render_template
 from flask_uploads import DOCUMENTS, IMAGES, TEXT, UploadSet, configure_uploads
 from flask_cors import CORS
-from werkzeug.utils import secure_filename
-from werkzeug.datastructures import  FileStorage
+#from werkzeug.utils import secure_filename
+#from werkzeug.datastructures import  FileStorage
 
 
 from App.database import init_db
@@ -15,7 +15,8 @@ from App.controllers import (
     add_auth_context
 )
 
-from App.views import views, setup_admin
+from App.views import views
+from App.views.admin import setup_admin
 
 def add_views(app):
     for view in views:

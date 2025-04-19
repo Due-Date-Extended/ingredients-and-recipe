@@ -1,8 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
-from flask_jwt_extended import get_jwt_identity, jwt_required, current_user as jwt_current_user
-from App import db
+from flask import Blueprint, request, redirect, url_for, flash
+from flask_jwt_extended import get_jwt_identity, jwt_required
 from App.models.rating import Rating
-from App.controllers.rating import create_rating, update_rating, delete_rating, get_rating
+from App.controllers.rating import create_rating, update_rating, delete_rating
 
 rating_view = Blueprint('rating_view', __name__, template_folder='../templates')
 

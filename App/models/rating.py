@@ -1,7 +1,4 @@
 from App.database import db
-from datetime import datetime
-from App.models import User
-from .recipe import Recipe
 
 class Rating(db.Model):
   id = db.Column(db.Integer, primary_key=True)

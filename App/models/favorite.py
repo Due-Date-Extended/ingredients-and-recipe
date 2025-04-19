@@ -1,7 +1,5 @@
 from App.database import db
 from datetime import datetime, timezone
-from App.models import User
-from .recipe import Recipe
 
 class Favorite(db.Model):
   id = db.Column(db.Integer, primary_key=True)

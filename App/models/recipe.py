@@ -1,6 +1,4 @@
 from App.database import db
-from datetime import datetime
-from App.models import User
 from .RecipeIngredient import RecipeIngredient
 from .favorite import Favorite
 
