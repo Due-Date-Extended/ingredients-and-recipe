@@ -11,7 +11,7 @@ favorite_view = Blueprint('favorite_view', __name__)
 def get_favorites():
     #this is to query the db for the user's favorite recipes and render them in the favorites template
     user_id = get_jwt_identity()
-    get_all_favorites_by_user(user_id) #type: ignore
+    favorites = get_all_favorites_by_user(user_id) #type: ignore
     return render_template('favorites.html', favorites=favorites)
 
 @favorite_view.route('/favorites/add/<int:recipe_id>', methods=['POST'])
