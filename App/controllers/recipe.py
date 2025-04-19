@@ -1,7 +1,7 @@
 from App.models.recipe import Recipe
 from App.models.RecipeIngredient import RecipeIngredient
 from App.database import db
-from flask import requests
+import requests
 #import json
 
 
