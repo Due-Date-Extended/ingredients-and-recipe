@@ -11,7 +11,7 @@ class Rating(db.Model):
     self.recipe_id = recipe_id
     self.score = score
     
-  def toJSON(self):
+  def get_json(self):
     return{
         'id': self.id,
         'recipe_id': self.recipe_id,

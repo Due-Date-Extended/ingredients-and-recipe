@@ -12,7 +12,7 @@ class Favorite(db.Model):
       self.date_added = datetime.now(timezone.utc)
       self.recipes = []
     
-  def toJSON(self):
+  def get_json(self):
     return{
         'id': self.id,
         'recipe_id': self.recipe_id,

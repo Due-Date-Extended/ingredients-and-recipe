@@ -8,7 +8,7 @@ class RecipeIngredient(db.Model):
   quantity = db.Column(db.Float, nullable=False)
   unit = db.Column(db.String(20), nullable=True)
 
-  def toJSON(self):
+  def get_json(self):
     return{
         'id': self.id,
         'recipe_id': self.recipe_id,

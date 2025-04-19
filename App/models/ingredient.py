@@ -28,7 +28,7 @@ class Ingredient(db.Model):
     db.session.commit()
     return self
 
-  def toJSON(self):
+  def get_json(self):
     return{
         'id': self.id,
         'user_id': self.user_id,
@@ -37,4 +37,4 @@ class Ingredient(db.Model):
         'unit': self.unit,
         'expiration_date': self.expiration_date,
         'date_added': self.date_added,
-        'recipes': [recipe_ingredient.toJSON() for recipe_ingredient in self.recipes.all() ]} 
+        'recipes': [recipe_ingredient.get_json() for recipe_ingredient in self.recipes.all() ]} 

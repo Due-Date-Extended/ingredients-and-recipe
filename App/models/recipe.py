@@ -33,7 +33,7 @@ class Recipe(db.Model):
     db.session.add(favorite)
     db.session.commit()
 
-  def toJSON(self):
+  def get_json(self):
     return{
         'id': self.id,
         'title': self.title,
@@ -41,7 +41,7 @@ class Recipe(db.Model):
         'category': self.category,
         'image_url': self.image_url,
         'user_id': self.user_id,
-        'ingredients': [recipe_ingredient.toJSON() for recipe_ingredient in self.ingredients.all()],
-        'favorites': [favorite.toJSON() for favorite in self.favorites.all() ],
-        'ratings': [rating.toJSON() for rating in self.ratings.all()]
+        'ingredients': [recipe_ingredient.get_json() for recipe_ingredient in self.ingredients.all()],
+        'favorites': [favorite.get_json() for favorite in self.favorites.all() ],
+        'ratings': [rating.get_json() for rating in self.ratings.all()]
     }
