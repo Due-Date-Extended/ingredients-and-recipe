@@ -32,6 +32,8 @@ def get_users_action():
 @user_views.route('/api/users', methods=['POST'])
 def create_user_endpoint():
     data = request.json
+    if not data:
+        return jsonify(message="Please provide user details"), 400
     user = create_user(data['username'], data['password'])
     return jsonify({'message': f"user {user.username} created with id {user.id}"})
 
