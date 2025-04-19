@@ -11,9 +11,10 @@ class User(db.Model):
     favorites = db.relationship('Favorite', backref='user', lazy=True)
     ratings = db.relationship('Rating', backref='user', lazy=True)
 
-    def __init__(self, username, password):
+    def __init__(self, username, password, email):
         self.username = username
         self.set_password(password)
+        self.email = email
 
     def toJSON(self):
         return{
