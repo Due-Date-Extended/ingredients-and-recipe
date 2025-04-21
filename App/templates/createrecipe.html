@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Recipes</title>
+        <link rel="stylesheet" href="styles.css" type="text/css">
+        <style>
+            .card {
+                padding: 30px;
+                box-shadow: 8px 14px 38px rgba(39, 44, 49, .06), 1px 3px 8px rgba(39, 44, 49, .03);
+                transition: 0.3s;
+                background-color: white;
+                border: 1px solid black;
+                margin-top: 100px;
+                margin-bottom: 20px;
+                border-radius: 5px;
+                opacity: 1;
+                width: 20%;
+            }
+            .row{
+                padding: 10px;
+            }
+            .vertical-center {
+                margin: 0;
+                position: absolute;
+                top: 50%;
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
+            .center {
+                margin: 0;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="navbar"></div>
+        <script>
+          fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+              document.getElementById('navbar').innerHTML = data;
+            });
+        </script> 
+        <div class ="card" style=" border-radius: 10px;  background-color: white; width:48%; height: 450px; float:left; justify-content: space-between; "> 
+            <h2>Create Recipe</h2>
+            <form id="create-recipe">
+                <div class ="row">
+                    <div class="col s12">
+                        <input name="recipe-name" type="text" minlength="8" required>
+                        <label for="recipe-name">Enter recipe name</label>
+                    </div>
+                </div>
+                <div class ="row">
+                    <div class="col s12">
+                        <input name="recipe-img" type="text" minlength="8" required>
+                        <label for="recipe-img">Enter image url</label>
+                    </div>
+                </div>
+                <div class ="row">
+                    <div class="col s12">
+                        <label for="filters">Choose a filter for the recipe:</label>
+                            <select id="filters" name="filters">
+                                <option value="chicken">Chicken</option>
+                                <option value="beef">Beef</option>
+                                <option value="seafood">Seafood</option>
+                                <option value="vegan">Vegan</option>
+                                <option value="dessert">Dessert</option>
+                            </select>
+                    </div>
+                </div>
+                
+                <!--
+                <div class ="row">
+                    <div class="col s12">
+                        <label for="cusine-type">Choose the cuisine of the recipe:</label>
+                            <select id="cusine-type" name="cusine-type">
+                                <option value="chinese">Chinese</option>
+                                <option value="indian">Indian</option>
+                                <option value="spanish">Spanish</option>
+                                
+                            </select>
+                    </div>
+                </div>  -->
+                
+                <div class ="row">
+                    <div class="col s12">
+                        <input name="recipe-instructions" type="text" minlength="8" required>
+                        <label for="recipe-instructions">Enter recipe intructions</label>
+                    </div>
+                </div>
+    
+            </form>
+            <div class="controls" class="center">
+                <button>Create</button>
+            </div>
+    
+        </div>
+    </body>
+</html>

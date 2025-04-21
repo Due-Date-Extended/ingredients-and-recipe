@@ -64,6 +64,3 @@ def update_user(id, username):
         print(f"Error updating user: {e}")
         db.session.rollback()
         return None
-
-
-

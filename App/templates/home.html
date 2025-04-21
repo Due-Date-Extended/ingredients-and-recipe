@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Home</title>
+        <link rel="stylesheet" href="styles.css" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            #homeBody {
+                background-color: white;
+            }
+
+            .card {
+                padding: 30px;
+                box-shadow: 8px 14px 38px rgba(39, 44, 49, .06), 1px 3px 8px rgba(39, 44, 49, .03);
+                transition: 0.3s;
+                background-color: white;
+                border: 1px solid black;
+                margin-bottom: 20px;
+                border-radius: 5px;
+                opacity: 1;
+                width: 20%;
+            }
+
+            h4 {
+                text-align: center;
+            }
+
+            img {
+                margin-left: 40px;
+                height: 150px;
+                width: 200px;
+                border-radius: 5px;
+            }
+
+            .containerforcolor {
+                flex-direction: horizontal;
+                display: flex;
+            }
+
+            /* On mouse-over, add a deeper shadow */
+            .card:hover {
+                box-shadow: 8px 28px 50px rgba(39, 44, 49, .07), 1px 6px 12px rgba(39, 44, 49, .04);
+                transform: translate3D(0, -1px, 0) scale(1.03);
+            }
+
+
+            .container {
+                padding: 2px 16px;
+            }
+
+            .productsSections {
+                padding: 20px;
+                margin-left: 20px;
+
+            }
+            
+  </style>
+    </head>
+
+    <body id="homeBody">
+        <div id="navbar"></div>
+        <script>
+          fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+              document.getElementById('navbar').innerHTML = data;
+            });
+        </script>
+
+        <main id="top" >
+          <div id="product" style="margin-top: 120px;">
+            <h1 style="text-align: center;">Recipes</h1>
+      
+            <div class="card-container" style=" width: 95%; display: flex; flex-wrap: wrap; justify-content: space-evenly; margin-left: 20px;">
+                
+            </div>
+      
+          </div>
+      
+        </main>
+      
+        <script>
+            
+      
+          async function getAndLoadAPIdata() {
+      
+            let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=`);
+            let data = await response.json();
+            console.log("Data from API: ", data);
+            let result = '';
+      
+            data.meals.forEach(meal => {
+              result += `
+                 
+                    <div onclick=getAndLoadApiRecipe(${meal.idMeal}) style=" border-radius: 10px; width: 20%;float:left; margin-right: 20px;" class="card">
+                        <div class="container">
+                            <h4 style="text-align: left" ><b>${meal.strMeal}</b></h4>
+                            <i style="float: right" class="fa fa-bookmark-o"></i>
+                        </div>
+                         
+                        <a href="recipe.html?id=${meal.idMeal}"><img src="${meal.strMealThumb}" alt="mealImg"></a>
+                    </div>
+                
+                      `;
+            });
+      
+            // Select the card container element
+            const cardContainer = document.querySelector('.card-container');
+            cardContainer.innerHTML = result;
+          };
+            // Call the function to fetch and load the API data
+          window.onload = getAndLoadAPIdata;
+
+          
+        </script>
+        
+        <footer>
+          <div style=" height:20px; padding:10px; background-color: black; align-content: space-evenly;">
+            
+            <a href="#top" class="skip" id="topSkip" >Skip to top</a>
+          </div>
+        </footer>
+        
+      </body>
+
+
+</html>

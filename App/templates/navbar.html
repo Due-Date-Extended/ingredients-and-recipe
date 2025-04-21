@@ -1,0 +1,170 @@
+<style>
+    .designNav {
+    
+    padding: 1em;
+    background-color: yellow;
+    height: 60px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    
+  }
+  
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    opacity: 1;
+    
+    
+  }
+  
+    .navButton {
+  
+      text-align: center;
+      border-radius: 1px;
+      background-color: white;
+      font-family: Georgia;
+      text-decoration: none;
+      padding: 10px ;
+      border-radius: 5px;
+      border-color: rgb(204, 0, 102);
+      border: 0.5px solid #333333;
+  
+  
+    }
+  
+    .navButton:link {
+      color: black;
+    }
+  
+    .navButton:visited {
+      color: black;
+    }
+  
+  
+    .navButton:hover {
+      color: black;
+      background-color: white;
+      font-weight: bold;
+      
+    }
+  
+    .navButton:active {
+      color: grey;
+    }
+
+    .row{
+        display: flex;
+        flex-direction: row;        
+    }
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        /* Links inside the dropdown */
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+        /* Change color of dropdown links on hover */
+    .dropdown-content a:hover {
+        background-color: #ddd;
+    }
+
+        /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+        /* Change the background color of the dropdown button when the dropdown content is shown */
+    .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+    }
+
+    .avatar {
+        vertical-align: middle;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+  </style>
+
+<header class="designNav">
+    
+    
+    <nav>
+        <div style="display: flex ; justify-content: space-evenly ; width: 100%; margin-top: 25px;" >
+            <div style=" width: 20%;">
+                <h1 style="text-align: left; "><a href="home.html">Recipes</a></h1>
+                
+            </div>
+            <div style=" width: 10%;" >
+                <label for="sortBy">Sort By:</label>
+                <select name="sortBy" id="sortBy">
+                    <option value="default">Default</option>
+                    <option value="az">A - Z</option>
+                    <option value="za">Z - A</option>
+                </select>
+                
+            </div>
+            <div style=" width: 10%;" >
+                <label for="filterBy">Filter By:</label>
+                <select name="filterBy" id="filterBy">
+                    
+                <option value="chicken">Chicken</option>
+                <option value="beef">Beef</option>
+                <option value="seafood">Seafood</option>
+                <option value="vegan">Vegan</option>
+                <option value="dessert">Dessert</option>
+                <optgroup label="Cusine">
+                    <option value="chinese">Chinese</option>
+                    <option value="indian">Indian</option>
+                    <option value="indian">Spanish</option>
+                </optgroup>
+                </select>
+                
+    
+                </select>
+            </div>
+            <div style=" width: 15%;" >
+                <a class = "navButton" >Random Recipe</a>
+            </div>
+            <div class="row" style=" width: 20%;" >
+                <section>
+                    <input type="text" placeholder="Search Recipe">
+                    <button type="submit">Search</button>
+                </section>
+            </div>
+            <div class="dropdown" style=" width: 10%; " >
+                <img src="avatar.jpeg" alt="Avatar" class="avatar">
+                <div class="dropdown-content">
+                    <a href="#">Inventory</a>
+                    <a href="createrecipe.html">Create recipe</a>
+                    <a href="#">View favorites</a>
+                    <a href="#">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+</header>
+<body>
+    
+</body>
+
+
+
+

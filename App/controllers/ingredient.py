@@ -1,5 +1,6 @@
 from App.models.ingredient import Ingredient
 from App.database import db
+from datetime import datetime
 
 def create_ingredient(user_id, name, quantity, unit, expiration_date):
     new_ingredient = Ingredient(user_id=user_id, name=name, quantity=quantity, unit=unit, expiration_date=expiration_date)
@@ -40,5 +41,10 @@ def add_ingredient_to_recipe(ingredient_id, recipe_id):
         ingredient.add_recipe(recipe_id)
         return ingredient
     return None
+
+def get_ingredients_expiring_today(user_id):
+    today = datetime.now().date()
+    return Ingredient.query.filter_by(user_id=user_id, expiration_date=today).all()
+
 
 

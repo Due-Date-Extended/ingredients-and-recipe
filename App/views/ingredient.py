@@ -5,7 +5,7 @@ from App.controllers.ingredient import * #type: ignore
 
 ingredient_view = Blueprint('ingredient_view', __name__, template_folder='../templates')
 
-@ingredient_view.route('/inventory', methods=['GET'])
+@ingredient_view.route('/inventory_view', methods=['GET'])
 @jwt_required()
 def get_inventory():
     #this is to query the db for the user's ingredients and render them in the inventory template
@@ -27,7 +27,7 @@ def add_ingredient():
   ingredient = create_ingredient(user_id, name, quantity, unit, expiration_date) #type: ignore
     
   flash('Ingredient added successfully!', 'success')
-  return redirect(url_for('ingredient_views.get_inventory'))
+  return redirect(url_for('ingredient_view.get_inventory'))
   #return render_template('inventory.html', ingredients=ingredients)
 
 
@@ -39,7 +39,7 @@ def update_ingredient(id):
     ingredient = get_ingredient(id) #type: ignore
     if not ingredient or ingredient.user_id != user_id:
         flash('You do not have permission to edit this ingredient.', 'danger')
-        return redirect(url_for('ingredient_views.get_inventory'))
+        return redirect(url_for('ingredient_view.get_inventory'))
     try:
           ingredient = update_ingredient(id, request.form['name'],     request.form['quantity'], request.form['unit'], request.form['expiration_date'] or None)
           flash('Ingredient updated successfully!', 'success')
@@ -57,9 +57,9 @@ def delete_ingredient(id):
     ingredient = get_ingredient(id)    #type: ignore
     if not ingredient or ingredient.user_id != user_id:
       flash('You do not have permission to delete this ingredient.', 'danger')
-      return redirect(url_for('ingredient_views.get_inventory'))
+      return redirect(url_for('ingredient_view.get_inventory'))
     
     delete_ingredient(id)
     
     flash('Ingredient deleted successfully!', 'success')
-    return redirect(url_for('ingredient_views.get_inventory'))
+    return redirect(url_for('ingredient_view.get_inventory'))
