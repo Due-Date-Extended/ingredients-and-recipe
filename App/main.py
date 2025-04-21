@@ -4,7 +4,7 @@ from flask_uploads import DOCUMENTS,IMAGES, TEXT, UploadSet, configure_uploads
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit, join_room
 from threading import Lock
-from controllers.user import * #type: ignore
+from App.controllers.user import * #type: ignore
 from App.controllers.ingredient import get_ingredients_expiring_today
 from App.models import User
 #from werkzeug.utils import secure_filename
