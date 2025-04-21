@@ -38,6 +38,7 @@ def create_app(overrides={}):
     photos = UploadSet('photos', TEXT + DOCUMENTS + IMAGES)
     configure_uploads(app, photos)
     socketio = SocketIO(app, cors_allowed_origins= "*")   
+    
 
     add_views(app)
     init_db(app)
@@ -82,4 +83,5 @@ def create_app(overrides={}):
 
 
     app.app_context().push()
-    return app, socketio
+    app.socketio = socketio # type: ignore
+    return app
