@@ -81,3 +81,12 @@ def search_recipes():
     recipes = fetch_api_recipes(query) #type: ignore
     
     return render_template('recipes.html', title='Recipes', recipes=recipes)
+
+
+    
+    
+    
+
+
+    
+

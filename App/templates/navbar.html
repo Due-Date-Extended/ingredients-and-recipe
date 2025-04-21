@@ -1,170 +1,278 @@
+<link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+
 <style>
-    .designNav {
-    
-    padding: 1em;
-    background-color: yellow;
-    height: 60px;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-    
-  }
-  
-  header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 10px;
-    opacity: 1;
-    
-    
-  }
-  
-    .navButton {
-  
-      text-align: center;
-      border-radius: 1px;
-      background-color: white;
-      font-family: Georgia;
-      text-decoration: none;
-      padding: 10px ;
-      border-radius: 5px;
-      border-color: rgb(204, 0, 102);
-      border: 0.5px solid #333333;
-  
-  
-    }
-  
-    .navButton:link {
-      color: black;
-    }
-  
-    .navButton:visited {
-      color: black;
-    }
-  
-  
-    .navButton:hover {
-      color: black;
-      background-color: white;
-      font-weight: bold;
-      
-    }
-  
-    .navButton:active {
-      color: grey;
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
     }
 
-    .row{
-        display: flex;
-        flex-direction: row;        
+    header.designNav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #FFFAF0;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        padding: 1em 2em;
+        animation: slideDown 0.6s ease-out;
     }
+
+    @keyframes slideDown {
+        from {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    nav h1 a {
+        font-family: 'Chewy', cursive;
+        font-size: 2rem;
+        color: #FF6B6B;
+        text-decoration: none;
+        transition: color 0.3s ease-in-out;
+    }
+
+    nav h1 a:hover {
+        color: #e05555;
+    }
+
+    .navButton {
+        padding: 10px 16px;
+        background-color: white;
+        color: black;
+        font-family: Georgia;
+        text-decoration: none;
+        border-radius: 8px;
+        border: 1px solid #FF6B6B;
+        transition: background-color 0.3s, transform 0.2s;
+        cursor: pointer;
+    }
+
+    .navButton:hover {
+        background-color: #ffecec;
+        transform: scale(1.05);
+        font-weight: bold;
+    }
+
     .dropdown {
         position: relative;
-        display: inline-block;
     }
+
+    .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
     .dropdown-content {
         display: none;
         position: absolute;
-        background-color: #f1f1f1;
+        top: 60px;
+        right: 0;
+        background-color: white;
         min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        overflow: hidden;
+        animation: fadeIn 0.3s ease-in-out;
     }
 
-        /* Links inside the dropdown */
-    .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-    }
-
-        /* Change color of dropdown links on hover */
-    .dropdown-content a:hover {
-        background-color: #ddd;
-    }
-
-        /* Show the dropdown menu on hover */
     .dropdown:hover .dropdown-content {
         display: block;
     }
 
-        /* Change the background color of the dropdown button when the dropdown content is shown */
-    .dropdown:hover .dropbtn {
-        background-color: #3e8e41;
+    .dropdown-content a,
+    .dropdown-content button {
+        display: block;
+        padding: 12px 16px;
+        text-decoration: none;
+        color: black;
+        background-color: white;
+        border: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        transition: background 0.3s;
     }
 
-    .avatar {
-        vertical-align: middle;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
+    .dropdown-content a:hover,
+    .dropdown-content button:hover {
+        background-color: #f0f0f0;
     }
-  </style>
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    select, input[type="text"] {
+        padding: 6px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .search-section {
+        display: flex;
+        gap: 0.5em;
+        align-items: center;
+    }
+
+    .search-section input {
+        width: 150px;
+    }
+
+    dialog {
+        width: 90%;
+        max-width: 400px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        padding: 1em;
+    }
+
+    dialog .controls {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1em;
+    }
+
+    dialog .controls button {
+        padding: 0.75em;
+        border-radius: 5px;
+        border: 1px solid black;
+        font-size: 1em;
+        background-color: peachpuff;
+        cursor: pointer;
+    }
+
+    .controls .close-btn {
+        background: transparent;
+        color: #FF6B6B;
+    }
+
+    @media (max-width: 768px) {
+        nav {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1em;
+        }
+
+        .search-section {
+            width: 100%;
+        }
+    }
+</style>
 
 <header class="designNav">
-    
-    
-    <nav>
-        <div style="display: flex ; justify-content: space-evenly ; width: 100%; margin-top: 25px;" >
-            <div style=" width: 20%;">
-                <h1 style="text-align: left; "><a href="home.html">Recipes</a></h1>
-                
+    <dialog>
+        <h2>Create Recipe</h2>
+        <form id="create-recipe">
+            <div>
+                <input name="recipe-name" type="text" placeholder="Enter recipe name" minlength="3" required>
             </div>
-            <div style=" width: 10%;" >
-                <label for="sortBy">Sort By:</label>
-                <select name="sortBy" id="sortBy">
-                    <option value="default">Default</option>
-                    <option value="az">A - Z</option>
-                    <option value="za">Z - A</option>
+            <div>
+                <input name="recipe-img" type="text" placeholder="Enter image URL" required>
+            </div>
+            <div>
+                <label for="filters">Filter:</label>
+                <select id="filters" name="filters">
+                    <option value="chicken">Chicken</option>
+                    <option value="beef">Beef</option>
+                    <option value="seafood">Seafood</option>
+                    <option value="vegan">Vegan</option>
+                    <option value="dessert">Dessert</option>
                 </select>
-                
             </div>
-            <div style=" width: 10%;" >
-                <label for="filterBy">Filter By:</label>
-                <select name="filterBy" id="filterBy">
-                    
+            <div>
+                <label for="cuisine">Cuisine:</label>
+                <select id="cuisine" name="cuisine">
+                    <option value="chinese">Chinese</option>
+                    <option value="indian">Indian</option>
+                    <option value="spanish">Spanish</option>
+                </select>
+            </div>
+            <div>
+                <input name="recipe-instructions" type="text" placeholder="Enter instructions" required>
+            </div>
+        </form>
+        <div class="controls">
+            <button class="close-btn" type="button">Close</button>
+            <button type="submit">Create</button>
+        </div>
+    </dialog>
+
+    <nav>
+        <h1><a href="home.html">Pantry Pal</a></h1>
+
+        <div>
+            <label for="sortBy">Sort By:</label>
+            <select id="sortBy">
+                <option value="default">Default</option>
+                <option value="az">A - Z</option>
+                <option value="za">Z - A</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="filterBy">Filter By:</label>
+            <select id="filterBy">
                 <option value="chicken">Chicken</option>
                 <option value="beef">Beef</option>
                 <option value="seafood">Seafood</option>
                 <option value="vegan">Vegan</option>
                 <option value="dessert">Dessert</option>
-                <optgroup label="Cusine">
+                <optgroup label="Cuisine">
                     <option value="chinese">Chinese</option>
                     <option value="indian">Indian</option>
-                    <option value="indian">Spanish</option>
+                    <option value="spanish">Spanish</option>
                 </optgroup>
-                </select>
+            </select>
+        </div>
+
+        <a class="navButton">Random Recipe</a>
+
+        <div class="search-section">
+            <input type="text" placeholder="Search Recipe">
+            <button type="submit">Search</button>
+        </div>
+
+        <div class="dropdown">
+            <img src="avatar.jpeg" alt="Avatar" class="avatar">
+            <div class="dropdown-content">
+                <a href = "{{ url_for('ingredient.view.get_inventory') }}'">Inventory</a>
                 
-    
-                </select>
-            </div>
-            <div style=" width: 15%;" >
-                <a class = "navButton" >Random Recipe</a>
-            </div>
-            <div class="row" style=" width: 20%;" >
-                <section>
-                    <input type="text" placeholder="Search Recipe">
-                    <button type="submit">Search</button>
-                </section>
-            </div>
-            <div class="dropdown" style=" width: 10%; " >
-                <img src="avatar.jpeg" alt="Avatar" class="avatar">
-                <div class="dropdown-content">
-                    <a href="#">Inventory</a>
-                    <a href="createrecipe.html">Create recipe</a>
-                    <a href="#">View favorites</a>
-                    <a href="#">Logout</a>
-                </div>
+                <a href="createrecipe.html"></a>Create recipe</button>
+
+                
+                <a href="{{ url_for('recipe.view.new_recipe') }}">Create recipe</a>
+                <a href = "{{ url_for('favorites.view.get_favorites') }}">View favorites</a>
+                <a href="{{ url_for('auth.logout') }}">Logout</a>
             </div>
         </div>
     </nav>
-    
+
+    <script>
+        const dialog = document.querySelector("dialog");
+        document.querySelector("#open-popup").addEventListener("click", () => dialog.showModal());
+        document.querySelector(".close-btn").addEventListener("click", () => dialog.close());
+    </script>
 </header>
-<body>
-    
-</body>
-
-
-
 

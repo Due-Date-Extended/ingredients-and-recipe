@@ -1,6 +1,7 @@
 from App.database import db
 from .RecipeIngredient import RecipeIngredient
 from .favorite import Favorite
+from .rating import Rating
 
 class Recipe(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -32,7 +33,17 @@ class Recipe(db.Model):
     self.favorites.append(favorite)
     db.session.add(favorite)
     db.session.commit()
+    return self
 
+  def remove_favorite(self, user):
+    favorite = Favorite.query.filter_by(user_id=user.id, recipe_id=self.id).first()
+    if favorite:
+      db.session.delete(favorite)
+      db.session.commit()
+      return self
+    return None
+
+  
   def get_json(self):
     return{
         'id': self.id,
@@ -45,3 +56,32 @@ class Recipe(db.Model):
         'favorites': [favorite.get_json() for favorite in self.favorites.all() ],
         'ratings': [rating.get_json() for rating in self.ratings.all()]
     }
+
+  def add_rating(self, user, score):
+    rating = Rating(user_id=user.id, recipe_id=self.id, score=score)
+    self.ratings.append(rating)
+    db.session.add(rating)
+    db.session.commit()
+    return self
+
+  def remove_rating(self, user):
+    rating = Rating.query.filter_by(user_id=user.id, recipe_id=self.id).first()
+    if rating:
+      db.session.delete(rating)
+      db.session.commit()
+      return self
+    return None
+
+
+  def missing_ingredients(self, user):
+    missing = []
+    for recipe_ingredient in self.ingredients: #type: ignore
+      ingredient = recipe_ingredient.ingredient
+      user_ingredient = user.ingredients.filter_by(id=ingredient.id).first()
+      if not user_ingredient or user_ingredient.quantity < recipe_ingredient.quantity:
+        missing.append(recipe_ingredient)
+        return missing
+      return None
+
+
+  

@@ -22,14 +22,4 @@ class RecipeIngredient(db.Model):
         self.ingredient_id = ingredient_id
         self.quantity = quantity
         self.unit = unit
-        self.date_added = datetime.now(timezone.utc)
-        
-        
-
-
-
-
-
-      
-
-  
+        self.date_added = datetime.now(timezone.utc)  

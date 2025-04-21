@@ -2,7 +2,6 @@
 <html>
     <head>
         <title>Recipes</title>
-        <link rel="stylesheet" href="styles.css" type="text/css">
         <style>
             .card {
                 padding: 30px;
@@ -38,6 +37,7 @@
     </head>
     <body>
         <div id="navbar"></div>
+        
         <script>
           fetch('navbar.html')
             .then(response => response.text())
@@ -45,6 +45,7 @@
               document.getElementById('navbar').innerHTML = data;
             });
         </script> 
+        
         <div class ="card" style=" border-radius: 10px;  background-color: white; width:48%; height: 450px; float:left; justify-content: space-between; "> 
             <h2>Create Recipe</h2>
             <form id="create-recipe">
@@ -72,20 +73,6 @@
                             </select>
                     </div>
                 </div>
-                
-                <!--
-                <div class ="row">
-                    <div class="col s12">
-                        <label for="cusine-type">Choose the cuisine of the recipe:</label>
-                            <select id="cusine-type" name="cusine-type">
-                                <option value="chinese">Chinese</option>
-                                <option value="indian">Indian</option>
-                                <option value="spanish">Spanish</option>
-                                
-                            </select>
-                    </div>
-                </div>  -->
-                
                 <div class ="row">
                     <div class="col s12">
                         <input name="recipe-instructions" type="text" minlength="8" required>

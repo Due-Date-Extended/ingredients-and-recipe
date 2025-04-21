@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredient Inventory</title>
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgba(255, 255, 255, 0.85);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        nav {
+            background-color: #FF6B6B;
+            padding: 15px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 5px solid #FFD700;
+        }
+
+        nav .logo img {
+            height: 50px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover,
+        .active {
+            color: #FFD700;
+            transition: color 0.3s ease-in-out;
+        }
+
+        nav .profile-icon {
+            position: relative;
+        }
+
+        nav .dropdown {
+            position: relative;
+        }
+
+        nav .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 5px;
+        }
+
+        nav .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        nav .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        nav .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Chewy', cursive;
+            color: #FF6B6B;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            animation: bounceIn 1s ease-out;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .sort-options {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .sort-btn {
+            background-color: #FF6B6B;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            cursor: pointer;
+            margin: 0 10px;
+            font-size: 16px;
+            border-radius: 20px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .sort-btn:hover {
+            background-color: #FF4040;
+            transform: scale(1.1);
+        }
+
+        .add-ingredient {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            width: 80%;
+            max-width: 600px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .add-ingredient:hover {
+            transform: scale(1.05);
+        }
+
+        .add-ingredient form input,
+        .add-ingredient form select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .add-ingredient form button {
+            background-color: #FF6B6B;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            cursor: pointer;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-ingredient form button:hover {
+            background-color: #FF4040;
+        }
+
+        .ingredient-list table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        .ingredient-list table th,
+        .ingredient-list table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .ingredient-list table th {
+            background-color: #FF6B6B;
+            color: white;
+        }
+
+        .ingredient-list table tbody tr:hover {
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+
+        .ingredient-list .actions {
+            display: flex;
+            justify-content: center;
+        }
+
+        .ingredient-list .actions button {
+            margin: 5px;
+            background-color: #FF6B6B;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .ingredient-list .actions button:hover {
+            background-color: #FF4040;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            60% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+
+    <div class="container">
+        <h1>Ingredient Inventory</h1>
+
+        <div class="sort-options">
+            <button class="sort-btn">Sort A-Z</button>
+            <button class="sort-btn">Sort Z-A</button>
+            <button class="sort-btn">Sort by Recently Added</button>
+        </div>
+
+        <div class="add-ingredient">
+            <h2>Add New Ingredient</h2>
+            <form>
+                <input type="text" placeholder="Ingredient Name" required>
+                <input type="number" placeholder="Quantity" required>
+                <select>
+                    <option value="lbs">lbs</option>
+                    <option value="cups">cups</option>
+                    <option value="tsp">tsp</option>
+                    <option value="oz">oz</option>
+                </select>
+                <input type="date" placeholder="Expiration Date" required>
+                <button type="submit">Add Ingredient</button>
+            </form>
+        </div>
+
+        <div class="ingredient-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ingredient</th>
+                        <th>Quantity</th>
+                        <th>Expiration</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tomato</td>
+                        <td>2 cups</td>
+                        <td>2025-05-01</td>
+                        <td class="actions">
+                            <button>Edit</button>
+                            <button>Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <<script>
+        window.USER_ID = {{ user.id | tojson }};
+    </script>
+    <script src="{{ url_for('static', filename='main.js') }}" defer></script>
+        
+    <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-placeholder').innerHTML = data;
+            });
+    </script>
+</body>
+</html>

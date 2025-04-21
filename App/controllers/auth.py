@@ -8,7 +8,6 @@ def login(username, password):
     return create_access_token(identity=username)
   return None
 
-
 def setup_jwt(app):
   jwt = JWTManager(app)
 

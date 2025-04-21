@@ -1,128 +1,261 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pantry Pal - Home</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chewy&display=swap">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: #fef9f6;
+    }
 
-    <head>
-        <title>Home</title>
-        <link rel="stylesheet" href="styles.css" type="text/css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <style>
-            #homeBody {
-                background-color: white;
-            }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background-color: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
 
-            .card {
-                padding: 30px;
-                box-shadow: 8px 14px 38px rgba(39, 44, 49, .06), 1px 3px 8px rgba(39, 44, 49, .03);
-                transition: 0.3s;
-                background-color: white;
-                border: 1px solid black;
-                margin-bottom: 20px;
-                border-radius: 5px;
-                opacity: 1;
-                width: 20%;
-            }
+    header h2 {
+      font-family: 'Chewy', cursive;
+      font-size: 2rem;
+      color: #FF6B6B;
+      margin: 0;
+    }
 
-            h4 {
-                text-align: center;
-            }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
 
-            img {
-                margin-left: 40px;
-                height: 150px;
-                width: 200px;
-                border-radius: 5px;
-            }
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
 
-            .containerforcolor {
-                flex-direction: horizontal;
-                display: flex;
-            }
+    nav a:hover {
+      color: #FF6B6B;
+    }
 
-            /* On mouse-over, add a deeper shadow */
-            .card:hover {
-                box-shadow: 8px 28px 50px rgba(39, 44, 49, .07), 1px 6px 12px rgba(39, 44, 49, .04);
-                transform: translate3D(0, -1px, 0) scale(1.03);
-            }
+    /* New added styles for search, sort, and filter */
+    nav input[type="text"], nav select {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
 
+    nav select {
+      background-color: #fff;
+    }
 
-            .container {
-                padding: 2px 16px;
-            }
+    h1 {
+      text-align: center;
+      font-family: 'Chewy', cursive;
+      font-size: 3rem;
+      color: #FF6B6B;
+      margin-top: 100px;
+      margin-bottom: 40px;
+    }
 
-            .productsSections {
-                padding: 20px;
-                margin-left: 20px;
+    /* Grid Layout for Cards */
+    .carousel-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
 
-            }
-            
+    .card {
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      background-color: #f3f1f0;
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+
+    .container {
+      padding: 16px;
+    }
+
+    .container h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    .fa-bookmark-o {
+      float: right;
+      font-size: 1.2rem;
+      color: #FF6B6B;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: black;
+      color: white;
+    }
+
+    .skip {
+      color: white;
+      text-decoration: none;
+    }
   </style>
-    </head>
+</head>
+<body>
 
-    <body id="homeBody">
-        <div id="navbar"></div>
-        <script>
-          fetch('navbar.html')
-            .then(response => response.text())
-            .then(data => {
-              document.getElementById('navbar').innerHTML = data;
-            });
-        </script>
+  <header id="top">
+    <h2>Pantry Pal</h2>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Add Recipe</a>
+      <a href="#">Favorites</a>
+      <a href="#">Inventory</a>
+      <a href="#">Login</a>
 
-        <main id="top" >
-          <div id="product" style="margin-top: 120px;">
-            <h1 style="text-align: center;">Recipes</h1>
+      <!-- Search Input -->
+      <input type="text" id="search" placeholder="Search recipes..." oninput="handleSearch()">
       
-            <div class="card-container" style=" width: 95%; display: flex; flex-wrap: wrap; justify-content: space-evenly; margin-left: 20px;">
-                
+      <!-- Sort Dropdown -->
+      <select id="sort" onchange="handleSort()">
+        <option value="az">Sort A-Z</option>
+        <option value="za">Sort Z-A</option>
+      </select>
+
+      <!-- Filter by Category Dropdown -->
+      <select id="category" onchange="handleCategoryFilter()">
+        <option value="">Filter by Category</option>
+        <option value="Beef">Beef</option>
+        <option value="Chicken">Chicken</option>
+        <option value="Vegetarian">Vegetarian</option>
+      </select>
+    </nav>
+  </header>
+
+  <h1>Welcome to Pantry Pal!</h1>
+
+  <div class="carousel-container card-container">
+    <!-- Dynamic cards will be loaded here -->
+  </div>
+
+  <footer>
+    <a href="#top" class="skip" id="topSkip">Skip to top</a>
+  </footer>
+
+  <script src="https://use.fontawesome.com/35c0c1163e.js"></script>
+  <script>
+    let currentSort = 'az';
+    let currentCategory = '';
+
+    async function getAndLoadAPIdata() {
+      const searchQuery = document.getElementById("search").value;
+      const url = searchQuery
+        ? `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchQuery}`
+        : `https://www.themealdb.com/api/json/v1/1/search.php?s=`;
+      const response = await fetch(url);
+      const data = await response.json();
+      let meals = data.meals || [];
+
+      if (currentSort === "az") {
+        meals.sort((a, b) => a.strMeal.localeCompare(b.strMeal));
+      } else if (currentSort === "za") {
+        meals.sort((a, b) => b.strMeal.localeCompare(a.strMeal));
+      }
+
+      renderMeals(meals);
+    }
+
+    async function getAndLoadAPIcategory() {
+      const category = currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1).toLowerCase();
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+      const data = await response.json();
+      let meals = data.meals || [];
+
+      if (currentSort === "az") {
+        meals.sort((a, b) => a.strMeal.localeCompare(b.strMeal));
+      } else if (currentSort === "za") {
+        meals.sort((a, b) => b.strMeal.localeCompare(a.strMeal));
+      }
+
+      renderMeals(meals);
+    }
+
+    function renderMeals(meals) {
+      const cardContainer = document.querySelector('.card-container');
+      let result = '';
+
+      meals.forEach(meal => {
+        result += `
+          <div onclick="getAndLoadApiRecipe(${meal.idMeal})" class="card">
+            <a href="recipe.html?id=${meal.idMeal}">
+              <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+            </a>
+            <div class="container">
+              <h3><b>${meal.strMeal}</b></h3>
+              <i class="fa fa-bookmark-o" style="float: right; margin-top: 20px;"></i>
             </div>
-      
           </div>
-      
-        </main>
-      
-        <script>
-            
-      
-          async function getAndLoadAPIdata() {
-      
-            let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=`);
-            let data = await response.json();
-            console.log("Data from API: ", data);
-            let result = '';
-      
-            data.meals.forEach(meal => {
-              result += `
-                 
-                    <div onclick=getAndLoadApiRecipe(${meal.idMeal}) style=" border-radius: 10px; width: 20%;float:left; margin-right: 20px;" class="card">
-                        <div class="container">
-                            <h4 style="text-align: left" ><b>${meal.strMeal}</b></h4>
-                            <i style="float: right" class="fa fa-bookmark-o"></i>
-                        </div>
-                         
-                        <a href="recipe.html?id=${meal.idMeal}"><img src="${meal.strMealThumb}" alt="mealImg"></a>
-                    </div>
-                
-                      `;
-            });
-      
-            // Select the card container element
-            const cardContainer = document.querySelector('.card-container');
-            cardContainer.innerHTML = result;
-          };
-            // Call the function to fetch and load the API data
-          window.onload = getAndLoadAPIdata;
+        `;
+      });
 
-          
-        </script>
-        
-        <footer>
-          <div style=" height:20px; padding:10px; background-color: black; align-content: space-evenly;">
-            
-            <a href="#top" class="skip" id="topSkip" >Skip to top</a>
-          </div>
-        </footer>
-        
-      </body>
+      cardContainer.innerHTML = result;
+    }
 
+    function handleSearch() {
+      getAndLoadAPIdata();
+    }
 
+    function handleSort() {
+      currentSort = document.getElementById("sort").value;
+      getAndLoadAPIdata();
+    }
+
+    function handleCategoryFilter() {
+      currentCategory = document.getElementById("category").value;
+      if (currentCategory) {
+        getAndLoadAPIcategory();
+      } else {
+        getAndLoadAPIdata();
+      }
+    }
+
+    window.onload = () => {
+      getAndLoadAPIdata();
+    };
+
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('top').innerHTML = data;
+      });
+  </script>
+</body>
 </html>
+
