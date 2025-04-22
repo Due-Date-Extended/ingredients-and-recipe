@@ -6,6 +6,7 @@
     .designNav {
     position: relative; /* ensures dropdown isn't cut off */
     z-index: 10;
+    background-color: bisque;
 }
     nav {
         display: flex;
@@ -13,6 +14,7 @@
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 1em;
+        background-color: bisque;
     }
 
     nav > * {
@@ -230,7 +232,7 @@
                 <a href="ingredient.html">Inventory</a>
                 <a href="createrecipe.html">Create recipe</a>
                 <a href="favorites.html">View favorites</a>
-                <a href="#">Logout</a>
+                <a href="{{ url_for('auth_views.logout_action') }}">Logout</a>
             </div>
         </div>
     

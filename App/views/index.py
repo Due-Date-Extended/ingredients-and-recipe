@@ -20,3 +20,7 @@ def health_check():
 def home():
     flash("Logged in")
     return render_template('home.html')
+
+@index_views.route('/navbar')
+def navbar():
+    return render_template('navbar.html')
