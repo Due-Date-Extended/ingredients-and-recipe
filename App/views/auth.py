@@ -45,7 +45,7 @@ def login_action():
     return response
 '''
 
-@auth_views.route('/login', methods=['POST', 'GET'])
+@auth_views.route('/login', methods=['POST'])
 def login_action():
     data = request.form
     token = login(data['username'], data['password'])
@@ -59,7 +59,7 @@ def login_action():
     set_access_cookies(response, token) # type: ignore
     return response
 
-@auth_views.route('/register', methods=['POST', 'GET'])
+@auth_views.route('/register', methods=['POST'])
 def register_action():
     data = request.form
     create_user(data['username'], data['password'])

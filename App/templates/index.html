@@ -109,16 +109,21 @@
 </head>
 <body>
 
-  <div class="welcome-container">
-    <div class="welcome-title">Pantry Pal</div>
-    <div class="divider"></div>
-    <div class="welcome-subtitle">
-      Your personal kitchen companion.<br>
-      Save ingredients, find recipes, and get inspired!
-    </div>
-    <div class="welcome-buttons">
-      <a href="{{ url_for('auth_views.login_action') }}">Log In</a>
-      <a href="{{ url_for('auth_views.register_action') }}">Sign Up</a>
+   <div class="welcome-buttons">
+      <form method="POST" action="{{ url_for('auth_views.login_action') }}">
+        <label for="login-username">Username:</label>
+        <input type="text" id="login-username" name="username" required>
+        <label for="login-password">Password:</label>
+        <input type="password" id="login-password" name="password" required>
+        <button type="submit">Log In</button>
+      </form>
+      <form method="POST" action="{{ url_for('auth_views.register_action') }}">
+        <label for="register-username">Username:</label>
+        <input type="text" id="register-username" name="username" required>
+        <label for="register-password">Password:</label>
+        <input type="password" id="register-password" name="password" required>
+        <button type="submit">Sign Up</button>
+      </form>
     </div>
   </div>
 
