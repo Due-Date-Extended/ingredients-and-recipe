@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Recipes</title>
+        <link rel="stylesheet" href="styles.css" type="text/css">
         <style>
             .card {
                 padding: 30px;
@@ -33,20 +34,63 @@
                 -ms-transform: translate(-50%, -50%);
                 transform: translate(-50%, -50%);
             }
+            .form-container {
+                display: flex;
+                justify-content: center;  
+                align-items: center;      
+                min-height: 100vh;        
+            }
+
         </style>
     </head>
     <body>
         <div id="navbar"></div>
-        
         <script>
-          fetch('navbar.html')
-            .then(response => response.text())
-            .then(data => {
-              document.getElementById('navbar').innerHTML = data;
-            });
-        </script> 
+            fetch('navbar.html')
+              .then(response => response.text())
+              .then(data => {
+                document.getElementById('navbar').innerHTML = data;
         
-        <div class ="card" style=" border-radius: 10px;  background-color: white; width:48%; height: 450px; float:left; justify-content: space-between; "> 
+                // for the filter by
+                const filterDropdown = document.getElementById("filterBy");
+  
+                if (filterDropdown) {
+                  filterDropdown.addEventListener("change", function () {
+                    const selectedOption = filterDropdown.options[filterDropdown.selectedIndex];
+                    const value = selectedOption.value;
+                    const type = selectedOption.dataset.type;
+  
+                    if (type === "category") {
+                      window.location.href = `home.html?c=${value}`;
+                    } else if (type === "area") {
+                      window.location.href = `home.html?a=${value}`;
+                    }
+                  });
+                }
+                
+                // for the sort by
+                const sortDropdown = document.getElementById("sortBy");
+  
+                sortDropdown.addEventListener("change", function () {
+                    const selectedSort = sortDropdown.value;
+                    const currentUrl = new URL(window.location.href);
+                    const params = currentUrl.searchParams;
+  
+                    // Set the new sort param
+                    params.set("sort", selectedSort);
+  
+                    // Build and navigate to the new URL
+                    currentUrl.search = params.toString();
+                    window.location.href = currentUrl.toString();
+                });
+  
+              });
+              
+          </script>
+
+          <div class="form-container">
+
+            <div class ="card" style="margin-top: 200px; border-radius: 10px;  background-color: white; width:48%; height: 450px; justify-content: space-between; "> 
             <h2>Create Recipe</h2>
             <form id="create-recipe">
                 <div class ="row">
@@ -63,28 +107,43 @@
                 </div>
                 <div class ="row">
                     <div class="col s12">
-                        <label for="filters">Choose a filter for the recipe:</label>
-                            <select id="filters" name="filters">
-                                <option value="chicken">Chicken</option>
-                                <option value="beef">Beef</option>
-                                <option value="seafood">Seafood</option>
-                                <option value="vegan">Vegan</option>
-                                <option value="dessert">Dessert</option>
-                            </select>
+                        <label for="filters">Select Filter category:</label>
+                <select name="filters" id="filters">
+                    
+                    <option value="" selected disabled>-- Select Category --</option>
+                    <option value="starter">Starter</option>
+                    <option value="pasta">Pasta</option>
+                    <option value="side">Side</option>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="Chicken">Chicken</option>
+                    <option value="beef">Beef</option>
+                    <option value="lamb">Lamb</option>
+                    <option value="pork">Pork</option>
+                    <option value="goat">Goat</option>
+                    <option value="seafood">Seafood</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="vegan">Vegan</option>
+                    <option value="dessert">Dessert</option>
+                    <option value="miscellaneous">Miscellaneous</option>
+                </select>
                     </div>
                 </div>
-                <div class ="row">
+                
+                <div class="row">
                     <div class="col s12">
-                        <input name="recipe-instructions" type="text" minlength="8" required>
-                        <label for="recipe-instructions">Enter recipe intructions</label>
+                        <label for="recipe-instructions">Enter recipe instructions</label>
+                        <textarea id="recipe-instructions" name="recipe-instructions" rows="8" required style="width: 100%; padding: 8px;"></textarea>
                     </div>
                 </div>
+                
     
             </form>
             <div class="controls" class="center">
                 <button>Create</button>
             </div>
     
-        </div>
+            </div>
+          </div>
+        
     </body>
 </html>

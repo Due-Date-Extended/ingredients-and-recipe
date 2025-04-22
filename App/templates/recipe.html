@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Recipe</title>
+        <link rel="stylesheet" href="styles.css">
+        <style>
+            .center {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 120px;
+            }
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 10px;
+            }
+            .col1, .col2{
+                color: white;
+                background-color: white;
+                border: 1px solid black;
+                padding: 30px;
+                margin: 10px;
+                
+            }
+            p{
+                color:black
+            }
+            table{
+                color: black
+            }
+            .card {
+                padding: 30px;
+                box-shadow: 8px 14px 38px rgba(39, 44, 49, .06), 1px 3px 8px rgba(39, 44, 49, .03);
+                transition: 0.3s;
+                background-color: white;
+                border: 1px solid black;
+                margin-bottom: 20px;
+                border-radius: 5px;
+                opacity: 1;
+                width: 20%;
+            }
+            body{
+                display: flex;
+                flex-direction: column;
+                background-color: #FFFFFF;
+                height: 100vh;
+                width: 100vw;
+                margin: 0;
+            }
+            .row{
+                display: flex;
+                flex-direction: row;
+            }
+
+            .col{
+                    display: flex;
+                    flex-direction: column;
+            }
+        </style>
+    </head>
+
+    <body id="recipeBody">
+        <div id="navbar"></div>
+        <script>
+          fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+              document.getElementById('navbar').innerHTML = data;
+      
+              // for the filter by
+              const filterDropdown = document.getElementById("filterBy");
+
+              if (filterDropdown) {
+                filterDropdown.addEventListener("change", function () {
+                  const selectedOption = filterDropdown.options[filterDropdown.selectedIndex];
+                  const value = selectedOption.value;
+                  const type = selectedOption.dataset.type;
+
+                  if (type === "category") {
+                    window.location.href = `home.html?c=${value}`;
+                  } else if (type === "area") {
+                    window.location.href = `home.html?a=${value}`;
+                  }
+                });
+              }
+              
+              // for the sort by
+              const sortDropdown = document.getElementById("sortBy");
+
+              sortDropdown.addEventListener("change", function () {
+                  const selectedSort = sortDropdown.value;
+                  const currentUrl = new URL(window.location.href);
+                  const params = currentUrl.searchParams;
+
+                  // Set the new sort param
+                  params.set("sort", selectedSort);
+
+                  // Build and navigate to the new URL
+                  currentUrl.search = params.toString();
+                  window.location.href = currentUrl.toString();
+              });
+
+            });
+            
+        </script>
+
+        <script>
+          async function getAndRedirectRandom(event) {
+            event.preventDefault(); // Stop the link from jumping to #
+
+            try {
+              const response = await fetch("https://www.themealdb.com/api/json/v1/1/random.php");
+              const data = await response.json();
+              const mealId = data.meals[0].idMeal;
+
+              // Redirect with ID in URL
+              window.location.href = `recipe.html?id=${mealId}`;
+            } catch (error) {
+              console.error("Failed to fetch random recipe:", error);
+              alert("Couldn't fetch a random recipe. Try again!");
+            }
+          }
+        </script>
+
+        <main id="top" >
+            
+
+
+          <div id="recipes" style="margin-top: 120px;">
+            
+      
+            <section class="recipe-container" style=" width: 95%; display: flex; flex-wrap: wrap; justify-content: space-evenly; margin-left: 20px;">
+                
+            </section>
+      
+          </div>
+      
+        </main>
+        
+        <script>
+            async function getAndLoadAPIRecipe(mealId) {
+              let response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`);
+              let data = await response.json();
+              let meal = data.meals[0];
+          
+              let result = `
+                <h1 style:"text-align: left">${meal.strMeal}</h1>
+            
+                <div class="col" style= " width: 95%; height: 590px; padding: 15px; display: flex; justify-content: space-between; margin-left: 15px; ">  
+                    
+                    <div class="col1" style=" border-radius: 10px;  background-color: white; height: 450px; justify-content: space-between;  margin-bottom:40px">  
+                        <div>
+                          <img class="center" src="${meal.strMealThumb}">
+                        </div>
+                        
+                        <p><strong>Category:</strong> ${meal.strCategory}</p>
+                        <p><strong>Area:</strong> ${meal.strArea}</p>
+                       
+                        <table>
+                            <tr>
+                                <th>Ingredient</th>
+                                <th>Measurement</th>
+                            </tr>
+                            <tr>
+                                <td>${meal.strIngredient1}</td>
+                                <td>${meal.strMeasure1}</td>
+                            </tr>
+                            <tr>
+                                <td>${meal.strIngredient2}</td>
+                                <td>${meal.strMeasure2}</td>
+                            </tr>
+                            <tr>
+                                <td>${meal.strIngredient3}</td>
+                                <td>${meal.strMeasure3}</td>
+                            </tr>
+                            <tr>
+                                <td>${meal.strIngredient4}</td>
+                                <td>${meal.strMeasure4}</td>
+                            </tr>
+                            <tr>
+                                <td>${meal.strIngredient5}</td>
+                                <td>${meal.strMeasure5}</td>
+                            </tr>
+                        </table>
+                        <br>
+                        <button style="margin-bottom: 20px" type="submit">Add to favorites</button>
+                    </div>  
+            
+                     <div class="col2" style=" border-radius: 10px; background-color: white; height: 450px;">  
+                          <h2 style="text-align: center; color:black">Instructions</h2>
+                          <p>${meal.strInstructions}</p>
+                     </div>  
+        
+                     
+                 </div>
+                
+              `;
+          
+              const recipeContainer = document.querySelector('.recipe-container');
+              recipeContainer.innerHTML = result;
+            }
+
+            window.onload = async function () {
+              const urlParams = new URLSearchParams(window.location.search);
+              const mealId = urlParams.get('id'); // Get the ?id=XXXX from the URL
+          
+              if (mealId) {
+                await getAndLoadAPIRecipe(mealId);
+              }
+            }
+          </script>
+          
+        
+        
+      
+        
+      </body>
+
+
+
+</html>

@@ -15,3 +15,7 @@ def init():
 @index_views.route('/health', methods=['GET'])
 def health_check():
     return jsonify({'status':'healthy'}) 
+
+@index_views.route('/home', methods=['GET'])
+def home():
+    return render_template('home.html')

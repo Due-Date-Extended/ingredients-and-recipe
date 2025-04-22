@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ingredient Inventory</title>
-    
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -288,18 +287,51 @@
             </table>
         </div>
     </div>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <<script>
         window.USER_ID = {{ user.id | tojson }};
     </script>
     <script src="{{ url_for('static', filename='main.js') }}" defer></script>
-        
+
+
     <script>
         fetch('navbar.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('navbar-placeholder').innerHTML = data;
+                // for the filter by
+                const filterDropdown = document.getElementById("filterBy");
+  
+                if (filterDropdown) {
+                  filterDropdown.addEventListener("change", function () {
+                    const selectedOption = filterDropdown.options[filterDropdown.selectedIndex];
+                    const value = selectedOption.value;
+                    const type = selectedOption.dataset.type;
+  
+                    if (type === "category") {
+                      window.location.href = `home.html?c=${value}`;
+                    } else if (type === "area") {
+                      window.location.href = `home.html?a=${value}`;
+                    }
+                  });
+                }
+                
+                // for the sort by
+                const sortDropdown = document.getElementById("sortBy");
+  
+                sortDropdown.addEventListener("change", function () {
+                    const selectedSort = sortDropdown.value;
+                    const currentUrl = new URL(window.location.href);
+                    const params = currentUrl.searchParams;
+  
+                    // Set the new sort param
+                    params.set("sort", selectedSort);
+  
+                    // Build and navigate to the new URL
+                    currentUrl.search = params.toString();
+                    window.location.href = currentUrl.toString();
+                });
             });
     </script>
 </body>

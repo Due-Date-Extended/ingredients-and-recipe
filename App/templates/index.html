@@ -60,22 +60,65 @@
       animation: fadeIn 2s ease;
     }
 
-    .welcome-buttons a {
-      display: inline-block;
-      margin: 10px 15px;
+    .welcome-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .welcome-buttons form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 15px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .welcome-buttons button {
       background-color: #FF6B6B;
       color: white;
       padding: 12px 25px;
+      border: none;
       border-radius: 25px;
-      text-decoration: none;
       font-weight: bold;
+      cursor: pointer;
       transition: all 0.3s ease;
       animation: fadeInUp 2s ease;
+      width: 100%;
+      margin-top: 10px;
     }
 
-    .welcome-buttons a:hover {
+    .welcome-buttons button:hover {
       background-color: #e65353;
       transform: scale(1.05);
+    }
+
+    .welcome-buttons input {
+      margin: 8px 0;
+      padding: 8px;
+      width: 200px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .welcome-buttons label {
+      color: #333;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .error-messages {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 10px;
+      border-radius: 8px;
+      max-width: 400px;
+      text-align: left;
     }
 
     /* Animations */
@@ -109,18 +152,32 @@
 </head>
 <body>
 
-   <div class="welcome-buttons">
+  <div class="welcome-container">
+    <div class="welcome-title">Pantry Pal</div>
+    <div class="divider"></div>
+    <div class="welcome-subtitle">
+      Your personal kitchen companion.<br>
+      Save ingredients, find recipes, and get inspired!
+    </div>
+    {% if get_flashed_messages() %}
+        <div class="error-messages">
+            {% for message in get_flashed_messages() %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="welcome-buttons">
       <form method="POST" action="{{ url_for('auth_views.login_action') }}">
-        <label for="login-username">Username:</label>
+        <label for="login-username">Username</label>
         <input type="text" id="login-username" name="username" required>
-        <label for="login-password">Password:</label>
+        <label for="login-password">Password</label>
         <input type="password" id="login-password" name="password" required>
         <button type="submit">Log In</button>
       </form>
       <form method="POST" action="{{ url_for('auth_views.register_action') }}">
-        <label for="register-username">Username:</label>
+        <label for="register-username">Username</label>
         <input type="text" id="register-username" name="username" required>
-        <label for="register-password">Password:</label>
+        <label for="register-password">Password</label>
         <input type="password" id="register-password" name="password" required>
         <button type="submit">Sign Up</button>
       </form>

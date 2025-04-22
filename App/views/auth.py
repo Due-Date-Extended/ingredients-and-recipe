@@ -1,10 +1,10 @@
-from flask import Blueprint, render_template, jsonify, request, flash, redirect #send_from_directory, url_for
+from flask import Blueprint, render_template, jsonify, request, flash, redirect, url_for #send_from_directory, 
 from flask_jwt_extended import jwt_required, current_user, unset_jwt_cookies, set_access_cookies, create_access_token
 from App.controllers.user import * # type: ignore
 from flask import Response as FlaskResponse
 
 
-from.index import index_views
+from.index import * # type: ignore
 
 from App.controllers import (
     login,
@@ -54,7 +54,7 @@ def login_action():
         flash('Bad username or password given')
         return redirect(request.referrer), 401
 
-    response = redirect(request.referrer)
+    response = redirect(url_for('index_views.home'))
     flash('Login Successful')
     set_access_cookies(response, token) # type: ignore
     return response
@@ -64,12 +64,12 @@ def register_action():
     data = request.form
     create_user(data['username'], data['password'])
     flash('User Registered')
-    return redirect(request.referrer)
+    return render_template('index.html')
 
 
 @auth_views.route('/logout', methods=['GET'])
 def logout_action():
-    response = redirect(request.referrer) 
+    response = render_template('index.html')
     flash("Logged Out!")
     unset_jwt_cookies(response) # type: ignore
     return response
