@@ -1,34 +1,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
 
+
+
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-    }
-
-    header.designNav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background-color: #FFFAF0;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        z-index: 1000;
-        padding: 1em 2em;
-        animation: slideDown 0.6s ease-out;
-    }
-
-    @keyframes slideDown {
-        from {
-            transform: translateY(-100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
-
+    .designNav {
+    position: relative; /* ensures dropdown isn't cut off */
+    z-index: 10;
+}
     nav {
         display: flex;
         align-items: center;
@@ -37,12 +15,20 @@
         gap: 1em;
     }
 
+    nav > * {
+        flex-grow: 1;
+        flex-shrink: 0;
+        min-width: 100px;
+        margin: 0 20px;
+    }
+
     nav h1 a {
         font-family: 'Chewy', cursive;
         font-size: 2rem;
         color: #FF6B6B;
         text-decoration: none;
         transition: color 0.3s ease-in-out;
+        flex: 0 1 auto; /* Prevent h1 from growing too much */
     }
 
     nav h1 a:hover {
@@ -59,6 +45,7 @@
         border: 1px solid #FF6B6B;
         transition: background-color 0.3s, transform 0.2s;
         cursor: pointer;
+        width: auto; /* Ensure button only takes up space as needed */
     }
 
     .navButton:hover {
@@ -67,8 +54,25 @@
         font-weight: bold;
     }
 
+    .search-section {
+        display: flex;
+        gap: 0.5em;
+        align-items: center;
+        flex: 1 1 200px; /* Allow search section to grow */
+    }
+
+    .search-section input {
+        width: 100%;
+        min-width: 150px;
+    }
+
+    .search-section button {
+        width: auto;
+    }
+
     .dropdown {
         position: relative;
+        flex: 0 0 auto; /* Prevent the dropdown from expanding */
     }
 
     .avatar {
@@ -91,8 +95,13 @@
         animation: fadeIn 0.3s ease-in-out;
     }
 
-    .dropdown:hover .dropdown-content {
+    .dropdown:hover .dropdown-content,
+    .dropdown-content:hover {
         display: block;
+    }
+    .dropdown {
+        position: relative;
+        display: inline-block; /* keeps layout inline */
     }
 
     .dropdown-content a,
@@ -132,101 +141,32 @@
         font-size: 1rem;
     }
 
-    .search-section {
-        display: flex;
-        gap: 0.5em;
-        align-items: center;
-    }
-
-    .search-section input {
-        width: 150px;
-    }
-
-    dialog {
-        width: 90%;
-        max-width: 400px;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        padding: 1em;
-    }
-
-    dialog .controls {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 1em;
-    }
-
-    dialog .controls button {
-        padding: 0.75em;
-        border-radius: 5px;
-        border: 1px solid black;
-        font-size: 1em;
-        background-color: peachpuff;
-        cursor: pointer;
-    }
-
-    .controls .close-btn {
-        background: transparent;
-        color: #FF6B6B;
-    }
-
     @media (max-width: 768px) {
         nav {
             flex-direction: column;
-            align-items: flex-start;
             gap: 1em;
+            align-items: stretch;
         }
 
-        .search-section {
+        .navButton, .search-section {
+            width: 100%;
+        }
+
+        .dropdown-content {
             width: 100%;
         }
     }
+
 </style>
 
 <header class="designNav">
-    <dialog>
-        <h2>Create Recipe</h2>
-        <form id="create-recipe">
-            <div>
-                <input name="recipe-name" type="text" placeholder="Enter recipe name" minlength="3" required>
-            </div>
-            <div>
-                <input name="recipe-img" type="text" placeholder="Enter image URL" required>
-            </div>
-            <div>
-                <label for="filters">Filter:</label>
-                <select id="filters" name="filters">
-                    <option value="chicken">Chicken</option>
-                    <option value="beef">Beef</option>
-                    <option value="seafood">Seafood</option>
-                    <option value="vegan">Vegan</option>
-                    <option value="dessert">Dessert</option>
-                </select>
-            </div>
-            <div>
-                <label for="cuisine">Cuisine:</label>
-                <select id="cuisine" name="cuisine">
-                    <option value="chinese">Chinese</option>
-                    <option value="indian">Indian</option>
-                    <option value="spanish">Spanish</option>
-                </select>
-            </div>
-            <div>
-                <input name="recipe-instructions" type="text" placeholder="Enter instructions" required>
-            </div>
-        </form>
-        <div class="controls">
-            <button class="close-btn" type="button">Close</button>
-            <button type="submit">Create</button>
-        </div>
-    </dialog>
-
     <nav>
-        <h1><a href="home.html">Pantry Pal</a></h1>
+        
+        <h1 style="width: 5%;"><a href="home.html">Pantry Pal</a></h1>
 
-        <button class="navButton" onclick="window.location.href='home.html';">Home</button>
+        
 
-        <div>
+        <div style="width: 3%;">
             <label for="sortBy">Sort By:</label>
             <select id="sortBy">
                 <option value="" selected disabled>-- Select Sort --</option>
@@ -235,7 +175,7 @@
             </select>
         </div>
 
-        <div style="width: 30%;">
+        <div style="width: 5%;">
             <label for="filterBy">Filter By:</label>
             <select name="filterBy" id="filterBy">
                 <option value="" selected disabled>-- Select Category --</option>
@@ -273,26 +213,27 @@
             </select>
         </div>
 
-        <div style="width: 15%;">
+        <div style="width: 5%;">
             <a href="random-recipe.html" class="navButton">Random Recipe</a>
         </div>
 
-        <div class="row" style="width: 20%;">
+        <div class="row" style="width: 5%;">
             <section class="search-section">
                 <input type="text" placeholder="Search Recipe">
                 <button type="submit">Search</button>
             </section>
         </div>
 
-        <div class="dropdown" style="width: 10%;">
+        <div class="dropdown" style="width: 5%;">
             <img src="avatar.jpeg" alt="Avatar" class="avatar">
             <div class="dropdown-content">
-                <a href="inventory.html">Inventory</a>
+                <a href="ingredient.html">Inventory</a>
                 <a href="createrecipe.html">Create recipe</a>
                 <a href="favorites.html">View favorites</a>
-                <a href="{{ url_for('auth_views.logout_action') }}">Logout</a>
+                <a href="#">Logout</a>
             </div>
         </div>
+    
     </nav>
 
     <script>

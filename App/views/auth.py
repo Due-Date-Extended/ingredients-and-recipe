@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, request, flash, redirect, url_for #send_from_directory, 
+from flask import Blueprint, render_template, jsonify, request, flash, redirect, url_for, make_response #send_from_directory, 
 from flask_jwt_extended import jwt_required, current_user, unset_jwt_cookies, set_access_cookies, create_access_token
 from App.controllers.user import * # type: ignore
 from flask import Response as FlaskResponse
@@ -54,7 +54,7 @@ def login_action():
         flash('Bad username or password given')
         return redirect(request.referrer), 401
 
-    response = redirect(url_for('index_views.home'))
+    response = make_response(redirect(url_for('index_views.home')))
     flash('Login Successful')
     set_access_cookies(response, token) # type: ignore
     return response

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify
+from flask import Blueprint, render_template, jsonify, flash
 from App.controllers import initialize
 
 index_views = Blueprint('index_views', __name__, template_folder='../templates')
@@ -16,6 +16,7 @@ def init():
 def health_check():
     return jsonify({'status':'healthy'}) 
 
-@index_views.route('/home', methods=['GET'])
+@index_views.route('/home')
 def home():
+    flash("Logged in")
     return render_template('home.html')
